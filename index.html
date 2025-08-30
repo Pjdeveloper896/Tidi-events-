@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TiDi Events - Event Planning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+    body { scroll-behavior: smooth; background: #fdf6fb; color: #333; }
+
+    /* Header */
+    header { position: fixed; width: 100%; background: rgba(255,255,255,0.95); display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+    header h1 { color: #d63384; font-weight: 700; font-size: 24px; }
+    nav a { margin-left: 30px; text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s; }
+    nav a:hover { color: #d63384; }
+
+    section { padding: 100px 50px; min-height: 100vh; }
+
+    /* Home */
+    #home { display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDR8fGV2ZW50c3xlbnwwfHx8fDE2OTMwNTk3OTI&ixlib=rb-4.0.3&q=80&w=1080') center/cover no-repeat; color: #fff; text-align: center; flex-direction: column; }
+    #home h2 { font-size: 48px; margin-bottom: 20px; animation: fadeInDown 1s ease forwards; }
+    #home p { font-size: 20px; margin-bottom: 30px; animation: fadeInUp 1s ease forwards; }
+    #home a { padding: 15px 30px; background: #d63384; color: #fff; text-decoration: none; font-weight: 600; border-radius: 5px; transition: all 0.3s; }
+    #home a:hover { background: #a01f5e; transform: scale(1.05); }
+
+    /* About */
+    #about { background: #fff0f8; text-align: center; }
+    #about h2 { font-size: 36px; margin-bottom: 20px; color: #d63384; }
+    #about p { font-size: 18px; max-width: 800px; margin: auto; line-height: 1.6; }
+
+    /* Services */
+    #services { background: #fff; text-align: center; }
+    #services h2 { font-size: 36px; margin-bottom: 50px; color: #d63384; }
+    .services-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+    .service { background: #fce4f0; border-radius: 10px; padding: 30px; width: 250px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .service:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .service h3 { color: #d63384; margin-bottom: 15px; }
+    .service p { font-size: 16px; line-height: 1.5; }
+
+    /* Blog */
+    #blog { background: #fff0f8; text-align: center; padding: 100px 50px; }
+    #blog h2 { font-size: 36px; margin-bottom: 50px; color: #d63384; }
+    .blog-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+    .blog-post { background: #fce4f0; border-radius: 10px; padding: 30px; width: 300px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .blog-post:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .blog-post h3 { color: #d63384; margin-bottom: 15px; font-size: 20px; }
+    .blog-post p { font-size: 16px; line-height: 1.5; }
+
+    /* Gallery */
+    #gallery { background: #fff; text-align: center; }
+    #gallery h2 { font-size: 36px; margin-bottom: 20px; color: #d63384; }
+    .gallery-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .gallery-container img, .gallery-container video { width: 300px; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .gallery-container img:hover, .gallery-container video:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+    /* Upload */
+    #uploadBtn { margin: 20px auto; display: inline-block; padding: 12px 25px; background: #d63384; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    #uploadBtn:hover { background: #a01f5e; transform: scale(1.05); }
+    #uploadInput { display: none; }
+
+    /* Countdown */
+    #countdown { text-align: center; background: #fff0f8; padding: 50px 0; font-size: 24px; color: #d63384; font-weight: 700; }
+
+    /* Contact */
+    #contact { background: #fff0f8; text-align: center; }
+    #contact h2 { font-size: 36px; margin-bottom: 20px; color: #d63384; }
+    #contact form { max-width: 600px; margin: auto; display: flex; flex-direction: column; gap: 20px; }
+    #contact input, #contact textarea { padding: 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; width: 100%; }
+    #contact button { padding: 15px; background: #d63384; color: #fff; font-weight: 600; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+    #contact button:hover { background: #a01f5e; transform: scale(1.05); }
+
+    /* Contact Info */
+    .contact-info { margin-top: 30px; font-size: 18px; line-height: 1.6; color: #333; }
+    .contact-info a { color: #d63384; text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
+
+    /* Live Chat */
+    #chatBtn { position: fixed; bottom: 30px; right: 30px; background: #d63384; color: #fff; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s; z-index: 10000; }
+    #chatBtn:hover { transform: scale(1.1); }
+    #chatBox { position: fixed; bottom: 100px; right: 30px; width: 300px; max-height: 400px; background: #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: none; flex-direction: column; z-index: 10000; }
+    #chatHeader { background: #d63384; color: #fff; padding: 10px; border-radius: 10px 10px 0 0; text-align: center; }
+    #chatMessages { flex: 1; padding: 10px; overflow-y: auto; }
+    #chatInput { display: flex; }
+    #chatInput input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 0 0 0 10px; }
+    #chatInput button { padding: 10px; background: #d63384; color: #fff; border: none; cursor: pointer; border-radius: 0 0 10px 0; transition: all 0.3s; }
+    #chatInput button:hover { background: #a01f5e; }
+
+    footer { background: #d63384; color: #fff; text-align: center; padding: 20px; }
+
+    @keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-50px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    @media(max-width: 768px){
+      header { flex-direction: column; }
+      nav a { margin: 10px 0; }
+      .services-container, .blog-container, .gallery-container { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>TiDi Events</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#blog">Blog</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home">
+    <h2>Making Your Events Magical ✨</h2>
+    <p>Professional Event Planning for Weddings, Birthdays, Corporate Events & More</p>
+    <a href="#contact">Book Now</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About TiDi Events</h2>
+    <p>
+      TiDi Events, led by Tiana Akpom Dibuaku, is a premier event planning company dedicated to turning your dreams into unforgettable experiences. 
+      From weddings to birthdays and corporate gatherings, we handle every detail with passion, creativity, and professionalism.
+    </p>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="services-container">
+      <div class="service"><h3>Weddings</h3><p>We create unforgettable wedding experiences with elegance, style, and love in every detail.</p></div>
+      <div class="service"><h3>Birthdays</h3><p>Birthday celebrations that are fun, vibrant, and memorable for all ages.</p></div>
+      <div class="service"><h3>Corporate Events</h3><p>Professional planning for conferences, launches, and corporate parties with finesse.</p></div>
+      <div class="service"><h3>Special Occasions</h3><p>From baby showers to anniversaries, we ensure every moment is magical and seamless.</p></div>
+    </div>
+  </section>
+
+  <!-- Blog / Event Tips Section -->
+  <section id="blog">
+    <h2>Event Tips & Ideas</h2>
+    <div class="blog-container">
+      <div class="blog-post">
+        <h3>5 Tips for a Perfect Igbo Traditional Wedding</h3>
+        <p>Plan early, involve family elders, choose vibrant attire, include cultural rituals, and hire a professional planner for smooth execution.</p>
+      </div>
+      <div class="blog-post">
+        <h3>How to Make Birthdays Unforgettable</h3>
+        <p>Pick a fun theme, decorate creatively, engage guests with games, capture memories in photos/videos, and end with a thoughtful gift.</p>
+      </div>
+      <div class="blog-post">
+        <h3>Corporate Events that Impress</h3>
+        <p>Focus on branding, choose an elegant venue, prepare engaging presentations, provide catering and entertainment, and always plan for contingencies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2>Event Gallery</h2>
+    <div class="gallery-container" id="galleryContainer">
+      <img src="https://images.unsplash.com/photo-1588392382834-a891154bca4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400" alt="Igbo Traditional Wedding 1">
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400" alt="Igbo Traditional Wedding 2">
+      <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400" alt="Event 3">
+    </div>
+    <button id="uploadBtn">Upload Current Events</button>
+    <input type="file" id="uploadInput" accept="image/*,video/*" multiple>
+  </section>
+
+  <!-- Countdown -->
+  <div id="countdown">Next Event Starts In: <span id="timer"></span></div>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Event Type" required>
+      <textarea rows="5" placeholder="Message or Details" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="contact-info">
+      <p>📞 Phone: <a href="tel:08168211183">08168211183</a></p>
+      <p>📧 Email: <a href="mailto:Africantiana@gmail.com">Africantiana@gmail.com</a></p>
+      <p>📸 Instagram: <a href="https://instagram.com/akpom_dibuaku_tiana" target="_blank">@akpom_dibuaku_tiana</a></p>
+    </div>
+  </section>
+
+  <!-- Live Chat -->
+  <button id="chatBtn">💬</button>
+  <div id="chatBox">
+    <div id="chatHeader">Live Chat</div>
+    <div id="chatMessages"></div>
+    <div id="chatInput">
+      <input type="text" placeholder="Type your message..." id="messageInput">
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 TiDi Events. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Upload Event Files
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadInput = document.getElementById('uploadInput');
+    const galleryContainer = document.getElementById('galleryContainer');
+    uploadBtn.addEventListener('click', () => uploadInput.click());
+    uploadInput.addEventListener('change', (e) => {
+      const files = e.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const url = URL.createObjectURL(file);
+        const img = document.createElement(file.type.startsWith('video/') ? 'video' : 'img');
+        if(file.type.startsWith('video/')) { img.src = url; img.controls = true; img.width = 300; } else { img.src = url; }
+        img.style.borderRadius = "10px"; img.style.transition = "transform 0.3s"; img.onmouseover = () => img.style.transform = "scale(1.05)"; img.onmouseout = () => img.style.transform = "scale(1)";
+        galleryContainer.appendChild(img);
+      }
+      uploadInput.value = '';
+    });
+
+    // Countdown Timer
+    const countdownDate = new Date("Sep 30, 2025 10:00:00").getTime();
+    const timerEl = document.getElementById("timer");
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      const days = Math.floor(distance/(1000*60*60*24));
+      const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+      const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+      const seconds = Math.floor((distance%(1000*60))/1000);
+      timerEl.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+
+    // Live Chat
+    const chatBtn = document.getElementById("chatBtn");
+    const chatBox = document.getElementById("chatBox");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatMessages = document.getElementById("chatMessages");
+    const messageInput = document.getElementById("messageInput");
+
+    chatBtn.addEventListener("click", () => chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex");
+
+    sendBtn.addEventListener("click", () => {
+      if(messageInput.value.trim() === "") return;
+      const msg = document.createElement("div");
+      msg.innerText = messageInput.value;
+      msg.style.padding = "5px 10px";
+      msg.style.margin = "5px 0";
+      msg.style.background = "#fce4f0";
+      msg.style.borderRadius = "5px";
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      messageInput.value = "";
+    });
+  </script>
+</body>
+</html>
